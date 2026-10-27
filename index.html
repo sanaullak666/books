@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Library</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+        }
+
+        .container {
+            width: 70%;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #ccc;
+            text-align: center;
+        }
+
+        h1 {
+            color: #222;
+        }
+
+        button {
+            padding: 12px 25px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        #bookList {
+            list-style: none;
+            padding: 0;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        #bookList li {
+            background: #f5f5f5;
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 5px solid #222;
+            border-radius: 5px;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .author {
+            display: block;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📚 Book Library</h1>
+
+    <p>Fetch book details using jQuery AJAX and JSON</p>
+
+    <button id="loadBooks">Load Books</button>
+
+    <ul id="bookList"></ul>
+
+</div>
+
+<script>
+
+$("#loadBooks").click(function () {
+
+    $.ajax({
+
+        url: "books.json",
+        type: "GET",
+        dataType: "json",
+
+        success: function (data) {
+
+            $("#bookList").empty();
+
+            $.each(data, function (index, book) {
+
+                $("#bookList").append(
+                    "<li>" +
+                    "<span class='title'>" +
+                    book.title +
+                    "</span>" +
+                    "<span class='author'>" +
+                    "Author: " + book.author +
+                    "</span>" +
+                    "</li>"
+                );
+
+            });
+        },
+
+        error: function () {
+
+            $("#bookList").html(
+                "<li class='error'>" +
+                "Unable to fetch book data." +
+                "</li>"
+            );
+
+        }
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>
